@@ -157,6 +157,7 @@ const App = () => {
   const [currentActionText, setCurrentActionText] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const requestTimestampsRef = useRef<number[]>([]);
 
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -276,6 +277,23 @@ const App = () => {
 
     while (iteration < maxIterations) {
       iteration++;
+
+      // Rate limiting: Wait if we have made 10 requests in the last 60 seconds.
+      const now = Date.now();
+      const oneMinuteAgo = now - 60000;
+      requestTimestampsRef.current = requestTimestampsRef.current.filter(ts => ts > oneMinuteAgo);
+
+      if (requestTimestampsRef.current.length >= 10) {
+        const oldestRequestInWindow = requestTimestampsRef.current[0];
+        const timeToWait = (oldestRequestInWindow - oneMinuteAgo);
+        if (timeToWait > 0) {
+            setCurrentActionText(`Rate limit reached. Waiting for ${Math.ceil(timeToWait / 1000)}s...`);
+            await new Promise(resolve => setTimeout(resolve, timeToWait));
+        }
+      }
+      
+      requestTimestampsRef.current.push(Date.now());
+
       const context = history.join('\n\n');
       const prompt = `You are VitAI, an expert AI developer assistant. Your goal is to answer the user's question by navigating and understanding code in a specific set of GitHub repositories.
 
@@ -361,7 +379,7 @@ Based on the user question and the history, what is your next Thought and Action
 
       try {
         const response = await ai.models.generateContent({
-          model: 'gemini-2.5-flash',
+          model: 'gemini-2.5-pro',
           contents: prompt,
           config: { tools: [{ functionDeclarations: tools }] },
         });
