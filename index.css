@@ -1,0 +1,335 @@
+:root {
+  --font-sans: "Google Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+
+  --bg-color: #131314;
+  --surface-color: #1e1f20;
+  --surface-hover: #282a2d;
+  --primary-accent: #89b4f8;
+  --primary-accent-hover: #9bc2f9;
+  --text-primary: #e3e3e3;
+  --text-secondary: #bdc1c6;
+  --border-color: #3c4043;
+  --border-color-light: #5f6368;
+  --user-bubble-bg: #2f3031;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden; /* Prevent body scroll, handle scrolling in main-content */
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-color);
+}
+
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1rem 1rem 8rem 1rem; /* Padding at bottom for input area */
+}
+
+.main-content-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Welcome Screen */
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  padding-bottom: 20vh; /* Push it up a bit */
+}
+
+.welcome-logo {
+  font-size: 3rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #4285f4, #9b72cb, #d96570, #f2a600);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #e3e3e3;
+}
+
+
+/* Chat Input Area */
+.chat-input-area {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(to top, var(--bg-color) 50%, transparent);
+}
+
+.chat-input-form {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--surface-color);
+  border-radius: 28px;
+  border: 1px solid var(--border-color);
+}
+
+.chat-input-form:focus-within {
+  border-color: var(--border-color-light);
+}
+
+textarea#question {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  resize: none;
+  max-height: 200px; /* Limit growth */
+  line-height: 1.5;
+  scrollbar-width: none; /* Firefox */
+  /* padding: 0.625rem 0 0.875rem; /* Visually align placeholder with button */
+  padding: 0;
+}
+
+textarea#question::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.submit-button {
+  background-color: var(--surface-color);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: var(--surface-hover);
+}
+
+.submit-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.submit-button svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-secondary);
+}
+
+.submit-button:disabled svg {
+  fill: var(--text-secondary);
+}
+
+/* Loading Spinner */
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Results Area */
+.turn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.user-turn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-turn {
+  background-color: var(--user-bubble-bg);
+  padding: 0.75rem 1rem;
+  border-radius: 18px;
+  max-width: 80%;
+}
+.user-turn p {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.agent-turn {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.agent-avatar {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.turn-content {
+  flex-grow: 1;
+  padding-top: 4px; /* Align text better with avatar */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.show-thinking-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 18px;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  user-select: none;
+  width: fit-content;
+}
+.show-thinking-bar:hover {
+    background-color: var(--surface-hover);
+}
+
+.show-thinking-bar svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.2s ease-in-out;
+}
+.show-thinking-bar[data-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.workpad-item {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 0rem;
+}
+
+.workpad-details {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.workpad-details p {
+    margin-bottom: 0.25rem;
+}
+.workpad-details p strong {
+    color: var(--primary-accent);
+}
+
+.workpad-details > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.workpad-details > div > strong {
+    color: var(--text-secondary);
+}
+
+.thinking-in-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  color: var(--text-secondary);
+}
+
+pre {
+  background-color: #000;
+  padding: 1rem;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.final-answer {
+  line-height: 1.7;
+}
+
+.final-answer p {
+  margin-bottom: 1rem;
+}
+.final-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.final-answer strong {
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.final-answer code {
+    background-color: var(--surface-color);
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+}
+
+.final-answer ul, .final-answer ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.final-answer li {
+    margin-bottom: 0.5rem;
+}
+
+.error {
+    color: #f28b82;
+}

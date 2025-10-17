@@ -1,0 +1,5 @@
+{
+  "name": "VitAI",
+  "description": "An agent that uses GitHub tools to answer questions, with a modern UI inspired by Gemini.",
+  "requestFramePermissions": []
+}
