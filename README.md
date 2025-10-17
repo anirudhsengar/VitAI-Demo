@@ -1,7 +1,3 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # VitAI - AI-Powered GitHub Repository Assistant
 
 An intelligent agent that leverages the Google Gemini AI API to answer questions about GitHub repositories. VitAI features a modern, responsive UI inspired by Google's Gemini interface and provides seamless interaction with your codebase.
