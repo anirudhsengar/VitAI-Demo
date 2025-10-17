@@ -361,7 +361,7 @@ Based on the user question and the history, what is your next Thought and Action
 
       try {
         const response = await ai.models.generateContent({
-          model: 'gemini-2.5-pro',
+          model: 'gemini-2.5-flash',
           contents: prompt,
           config: { tools: [{ functionDeclarations: tools }] },
         });
