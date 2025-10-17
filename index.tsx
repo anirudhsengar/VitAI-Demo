@@ -158,7 +158,7 @@ const App = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
   useEffect(() => {
     const textarea = textareaRef.current;
