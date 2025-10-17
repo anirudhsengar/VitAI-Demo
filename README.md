@@ -74,7 +74,7 @@ VitAI-Demo/
 The diagram below illustrates the flow of context in VitAI:
 
 <p align="center">
-   <img src="VitAI_ReAct_architecture.png" alt="VitAI ReAct Architecture" style="max-width:100%;height:auto;">
+   <img src="VitAI_ReAct_Architecture.png" alt="VitAI ReAct Architecture" style="max-width:100%;height:auto;">
 </p>
 
 
